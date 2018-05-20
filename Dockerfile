@@ -16,7 +16,7 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
-ENV REFRESHED_AT 2018-05-19
+ENV REFRESHED_AT 2018-05-20
 
 ENV APP_PATH $app_path
 ENV APP_NAME $app_name
@@ -37,13 +37,15 @@ WORKDIR $APP_PATH/$APP_NAME
 
 RUN rm -rf _build  \
     && rm -rf deps \
-    && rm -rf logs \
-    && cd apps/elixir_drip_web/assets \
-    && ./node_modules/brunch/bin/brunch b -p \
-    && cd $APP_PATH/$APP_NAME \
+    && rm -rf logs
+RUN cd $APP_PATH/$APP_NAME \
     && MIX_ENV=$MIX_ENV mix clean \
     && MIX_ENV=$MIX_ENV mix deps.get \
-    && MIX_ENV=$MIX_ENV mix compile \
+    && MIX_ENV=$MIX_ENV mix compile
+RUN cd apps/elixir_drip_web/assets \
+    && npm install \
+    && ./node_modules/brunch/bin/brunch b -p
+RUN cd $APP_PATH/$APP_NAME \
     && MIX_ENV=$MIX_ENV mix phx.digest \
     && MIX_ENV=$MIX_ENV mix release --env=$MIX_ENV
 
