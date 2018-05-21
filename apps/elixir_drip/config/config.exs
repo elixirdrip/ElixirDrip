@@ -11,6 +11,6 @@ config :arc,
   storage_dir: "v1"
 
 config :goth,
-  json: "./secrets/credentials.dev.json" |> Path.expand |> File.read!
+  config_module: ElixirDrip.Config.GcsCredentials
 
 import_config "#{Mix.env()}.exs"

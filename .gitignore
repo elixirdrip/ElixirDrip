@@ -1,4 +1,7 @@
-/secrets
+/secrets/*dev*.json
+/secrets/*prod*.json
+/secrets/*dev*.env
+/secrets/*prod*.env
 /_build
 /cover
 /deps
