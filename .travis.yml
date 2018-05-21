@@ -26,7 +26,7 @@ before_script:
 #   - docker ps -a
 #   - sleep 30  # wait for PostgreSQl and Elasticsearch to start
 
-script: BUILD_TAG=$TRAVIS_COMMIT docker-compose -f docker-compose.test.yml up --build
+script: BUILD_TAG=$TRAVIS_COMMIT docker-compose -f docker-compose.test.yml run app
 
 after_script:
   - BUILD_TAG=$TRAVIS_COMMIT docker-compose -f docker-compose.test.yml down
