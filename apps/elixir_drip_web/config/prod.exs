@@ -57,6 +57,5 @@ config :elixir_drip_web, ElixirDripWeb.Endpoint,
 #     config :elixir_drip_web, ElixirDripWeb.Endpoint, server: true
 #
 
-# Finally import the config/prod.secret.exs
-# which should be versioned separately.
-import_config "prod.secret.exs"
+config :elixir_drip_web, ElixirDripWeb.Endpoint,
+  secret_key_base: "${SECRET_KEY_BASE}"

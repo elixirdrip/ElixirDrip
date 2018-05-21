@@ -24,6 +24,9 @@ config :logger, :console,
 
 config :elixir_drip_web, :generators, context_app: false
 
+config :elixir_drip_web, ElixirDripWeb.Endpoint,
+  secret_key_base: System.get_env("SECRET_KEY_BASE")
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"
