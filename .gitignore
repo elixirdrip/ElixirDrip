@@ -2,6 +2,7 @@
 /secrets/*prod*.json
 /secrets/*dev*.env
 /secrets/*prod*.env
+/secrets/travis-ci-k8s-deployment-creds.json
 /_build
 /cover
 /deps

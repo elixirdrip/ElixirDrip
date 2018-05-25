@@ -6,6 +6,11 @@ services:
 env:
   - DOCKER_COMPOSE_VERSION=1.17.1
 
+cache:
+  directories:
+    # to cache the google cloud sdk we install
+    - "$HOME/google-cloud-sdk/"
+
 before_install:
   # installing most recent Docker
   - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
@@ -22,11 +27,27 @@ before_install:
 before_script:
   - docker --version
   - docker-compose --version
-#   - docker-compose -f docker-compose.travis.yml up --build -d
-#   - docker ps -a
-#   - sleep 30  # wait for PostgreSQl and Elasticsearch to start
 
 script: BUILD_TAG=$TRAVIS_COMMIT docker-compose -f docker-compose.test.yml run app
 
 after_script:
   - BUILD_TAG=$TRAVIS_COMMIT docker-compose -f docker-compose.test.yml down
+
+before_deploy:
+  - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
+  - source $HOME/google-cloud-sdk/path.bash.inc
+  - gcloud --quiet version
+  - gcloud --quiet components update
+  - gcloud --quiet components update kubectl
+
+deploy:
+    # deploy development to the staging environment TODO: for now going to production
+  - provider: script
+    script: bash deploy/travis_deploy.sh $TRAVIS_COMMIT production
+    on:
+      branch: development
+  # deploy master to production
+  - provider: script
+    script: bash deploy/travis_deploy.sh $TRAVIS_COMMIT production
+    on:
+      branch: master
