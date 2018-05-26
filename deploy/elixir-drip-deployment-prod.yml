@@ -24,13 +24,13 @@ spec:
           name: elixir-drip-prod
           livenessProbe:
             httpGet:
-              path: /
+              path: /health
               port: 4000
             initialDelaySeconds: 60
             timeoutSeconds: 15
           readinessProbe:
             httpGet:
-              path: /
+              path: /health
               port: 4000
             initialDelaySeconds: 60
             timeoutSeconds: 15

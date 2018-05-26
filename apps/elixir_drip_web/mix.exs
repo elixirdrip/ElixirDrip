@@ -44,6 +44,7 @@ defmodule ElixirDripWeb.Mixfile do
       {:phoenix_live_reload, "~> 1.1", only: :dev},
       {:gettext, "~> 0.15"},
       {:cowboy, "~> 1.0"},
+      {:timex, "~> 3.3"},
       {:elixir_drip, in_umbrella: true}
     ]
   end
