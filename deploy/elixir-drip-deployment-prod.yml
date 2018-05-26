@@ -46,6 +46,11 @@ spec:
               value: 127.0.0.1
             - name: DB_PORT
               value: "5432"
+            - name: GOOGLE_STORAGE_CREDENTIALS
+              valueFrom:
+                secretKeyRef:
+                  name: google-storage-credentials
+                  key: base64-credentials
             - name: DB_USER
               valueFrom:
                 secretKeyRef:
