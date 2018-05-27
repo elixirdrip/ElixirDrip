@@ -11,8 +11,8 @@ config :elixir_drip, ElixirDrip.Repo,
 
 config :libcluster,
   topologies: [
-    k8s_example: [
+    elixir_drip_topology: [
       strategy: Cluster.Strategy.Kubernetes,
       config: [
-        kubernetes_selector: "app=elixir-drip",
+        kubernetes_selector: "app=elixir-drip,env=production",
         kubernetes_node_basename: "elixir_drip"]]]

@@ -3,6 +3,9 @@ kind: Service
 metadata:
   name: elixir-drip-loadbalancer
   namespace: production
+  labels:
+    app: elixir-drip
+    env: production
 spec:
   type: LoadBalancer
   selector:
