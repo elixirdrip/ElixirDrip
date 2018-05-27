@@ -46,6 +46,15 @@ spec:
               value: 127.0.0.1
             - name: DB_PORT
               value: "5432"
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: ERLANG_COOKIE
+              valueFrom:
+                secretKeyRef:
+                  name: erlang-cookie
+                  key: cookie
             - name: GOOGLE_STORAGE_CREDENTIALS
               valueFrom:
                 secretKeyRef:

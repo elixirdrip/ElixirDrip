@@ -23,7 +23,6 @@ end
 environment :prod do
   set include_erts: true
   set include_src: false
-  set cookie: :"u]}g=H5@:&LRyc,}T4I$1@TU/>?Q*}D,q3.,;*`x)D`<~&4(:n.8~oGV.YDikP=8"
 end
 
 # You may define one or more releases in this file.
@@ -32,6 +31,7 @@ end
 # will be used by default
 
 release :elixir_drip do
+  set vm_args: "rel/custom.vm.args"
   set version: "0.0.8"
   set applications: [
     :runtime_tools,
