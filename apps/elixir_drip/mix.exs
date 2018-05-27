@@ -44,6 +44,7 @@ defmodule ElixirDrip.Mixfile do
       {:comeonin, "~> 4.1"},
       {:bcrypt_elixir, "~> 1.0"},
       {:flow, "~> 0.12.0"},
+      {:libcluster, "~> 2.5"},
       {:gen_stage, "~> 0.13.0", override: true}
     ]
   end

@@ -8,3 +8,11 @@ config :elixir_drip, ElixirDrip.Repo,
   hostname: "${DB_HOST}",
   port: "${DB_PORT}",
   pool_size: 15
+
+config :libcluster,
+  topologies: [
+    k8s_example: [
+      strategy: Cluster.Strategy.Kubernetes,
+      config: [
+        kubernetes_selector: "app=elixir-drip",
+        kubernetes_node_basename: "elixir_drip"]]]
