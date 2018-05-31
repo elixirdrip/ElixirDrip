@@ -13,4 +13,9 @@ config :arc,
 config :goth,
   config_module: ElixirDrip.Config.GcsCredentials
 
+config :distillery,
+  # bcrypt_elixir depends on this, only in build time
+  # doesn't make sense to include it in the release
+  no_warn_missing: [:elixir_make]
+
 import_config "#{Mix.env()}.exs"
