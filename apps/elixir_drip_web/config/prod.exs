@@ -19,6 +19,8 @@ config :elixir_drip_web, ElixirDripWeb.Endpoint,
   cache_static_manifest: "priv/static/cache_manifest.json",
   server: true
 
+config :logger, level: :info
+
 # ## SSL Support
 #
 # To get SSL working, you will need to add the `https` key

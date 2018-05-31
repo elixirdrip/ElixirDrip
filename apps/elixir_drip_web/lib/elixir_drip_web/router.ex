@@ -13,12 +13,16 @@ defmodule ElixirDripWeb.Router do
     plug(:accepts, ["json"])
   end
 
+  pipeline :logger do
+    plug(Plug.Logger)
+  end
+
+  get("/health", ElixirDripWeb.HealthController, :health)
+
   scope "/", ElixirDripWeb do
-    # Use the default browser stack
-    pipe_through(:browser)
+    pipe_through([:browser, :logger])
 
     get("/", PageController, :index)
-    get("/health", HealthController, :health)
   end
 
   # Other scopes may use custom stacks.
