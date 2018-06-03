@@ -14,6 +14,8 @@ defmodule ElixirDripWeb.Router do
 
   pipeline :api do
     plug(:accepts, ["json"])
+    plug(:fetch_session)
+    plug(FetchUser)
   end
 
   pipeline :logger do
@@ -37,8 +39,12 @@ defmodule ElixirDripWeb.Router do
     get("/", PageController, :index)
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", ElixirDripWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", ElixirDripWeb.Api, as: :api do
+    pipe_through(:api)
+
+    get("/files", FileController, :index)
+
+    post("/sessions", SessionController, :create)
+    delete("/sessions", SessionController, :delete)
+  end
 end
