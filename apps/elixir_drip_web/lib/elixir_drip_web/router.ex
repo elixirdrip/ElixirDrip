@@ -1,12 +1,15 @@
 defmodule ElixirDripWeb.Router do
   use ElixirDripWeb, :router
 
+  alias ElixirDripWeb.Plugs.FetchUser
+
   pipeline :browser do
     plug(:accepts, ["html"])
     plug(:fetch_session)
     plug(:fetch_flash)
     plug(:protect_from_forgery)
     plug(:put_secure_browser_headers)
+    plug(FetchUser)
   end
 
   pipeline :api do
@@ -25,6 +28,11 @@ defmodule ElixirDripWeb.Router do
     resources("/files", FileController, only: [:index, :new, :create, :show])
     get("/files/:id/download", FileController, :download)
     post("/files/:id/download", FileController, :enqueue_download)
+
+    resources("/users", UserController, only: [:new, :create])
+
+    resources("/sessions", SessionController, only: [:new, :create])
+    delete("/sessions", SessionController, :delete)
 
     get("/", PageController, :index)
   end

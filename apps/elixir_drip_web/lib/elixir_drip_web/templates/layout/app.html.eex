@@ -7,18 +7,22 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Hello ElixirDripWeb!</title>
+    <title>Welcome to ElixirDrip!</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
   <body>
-    <div class="container">
+    <div class="container-fluid">
       <header class="header">
-        <nav role="navigation">
-          <ul class="nav nav-pills pull-right">
-            <li><a href="http://www.phoenixframework.org/docs">Get Started</a></li>
-          </ul>
-        </nav>
+        <ul class="breadcrumb text-right">
+          <%= if assigns[:current_user] do %>
+            <li>Hi, <%= assigns[:current_user].username %>!</li>
+            <li><%= link("Logout", to: session_path(@conn, :delete), method: "delete") %></li>
+          <% else %>
+            <li><%= link("Sign Up", to: user_path(@conn, :new)) %></li>
+            <li><%= link("Login", to: session_path(@conn, :new)) %></li>
+          <% end %>
+        </ul>
         <span class="logo"></span>
       </header>
 
