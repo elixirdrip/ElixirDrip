@@ -184,9 +184,14 @@ defmodule ElixirDrip.Storage do
   #   result = Repo.one(to_run)
   # end
 
-  def get_media(media_id), do: Repo.get!(Media, media_id)
+  def get_file_info(user_id, media_id) do
+    case get_media(user_id, media_id) do
+      {:ok, media} -> {:ok, format_media(media)}
+      _ -> {:error, :not_found}
+    end
+  end
 
-  def get_media(user_id, media_id) do
+  defp get_media(user_id, media_id) do
     user_media = user_media_query(user_id)
 
     media_query = from [_mo, m] in user_media,
@@ -194,9 +199,11 @@ defmodule ElixirDrip.Storage do
 
     case Repo.one(media_query) do
       nil   -> {:error, :not_found}
-      media -> media_to_present(media)
+      media -> {:ok, media}
     end
   end
+
+  defp find_media(media_id), do: Repo.get!(Media, media_id)
 
   # debug only
   @doc false
@@ -269,7 +276,7 @@ defmodule ElixirDrip.Storage do
 
   defp _move(user_id, media_id, new_path, new_name) do
     with {:ok, :creator}  <- is_creator?(user_id, media_id),
-         %Media{} = media <- get_media(media_id),
+         %Media{} = media <- find_media(media_id),
          new_path         <- new_path(media, new_path),
          new_name         <- new_name(media, new_name),
          {:ok, :nonexistent} <- media_already_exists?(user_id, new_path, new_name)
@@ -329,7 +336,7 @@ defmodule ElixirDrip.Storage do
     {:ok, result}
   end
 
-  defp media_to_present(%Media{id: id, file_name: name,
+  defp format_media(%Media{id: id, file_name: name,
     full_path: full_path, file_size: size, metadata: metadata,
     user_id: owner_id, uploaded_at: uploaded_at}),
     do: %{
@@ -414,6 +421,6 @@ defmodule ElixirDrip.Storage do
     }
     Queue.enqueue(Queue.Download, download_task)
 
-    {:ok, :download_enqueued, media}
+    {:ok, :download_enqueued, format_media(media)}
   end
 end
