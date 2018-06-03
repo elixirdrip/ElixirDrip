@@ -22,6 +22,10 @@ defmodule ElixirDripWeb.Router do
   scope "/", ElixirDripWeb do
     pipe_through([:browser, :logger])
 
+    resources("/files", FileController, only: [:index, :new, :create, :show])
+    get("/files/:id/download", FileController, :download)
+    post("/files/:id/download", FileController, :enqueue_download)
+
     get("/", PageController, :index)
   end
 
