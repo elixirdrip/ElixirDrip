@@ -15,6 +15,11 @@ defmodule ElixirDrip.Accounts do
     |> Repo.insert()
   end
 
+  def find_user(user_id) do
+    User
+    |> Repo.get(user_id)
+  end
+
   def get_user_by_username(username) do
     User
     |> Repo.get_by(username: username)
