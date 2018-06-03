@@ -308,7 +308,9 @@ defmodule ElixirDrip.Storage do
                    end)
 
     folder_entry = result[:folders]
-    Map.put(result, :folders, Map.values(folder_entry))
+    result = Map.put(result, :folders, Map.values(folder_entry))
+
+    {:ok, result}
   end
 
   defp media_to_present(%Media{id: id, file_name: name,
