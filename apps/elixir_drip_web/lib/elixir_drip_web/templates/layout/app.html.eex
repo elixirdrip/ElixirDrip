@@ -26,6 +26,11 @@
         <span class="logo"></span>
       </header>
 
+      <%= if assigns[:current_user] do %>
+        <h4>Online users:</h4>
+        <div id="online_users"></div>
+      <% end %>
+
       <p class="alert alert-info" role="alert" id="notify_info"><%= get_flash(@conn, :info) %></p>
       <p class="alert alert-success" role="alert" id="notify_success"></p>
       <p class="alert alert-danger" role="alert" id="notify_error"><%= get_flash(@conn, :error) %></p>
