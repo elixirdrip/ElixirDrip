@@ -36,7 +36,7 @@ defmodule ElixirDrip.Accounts do
     |> Repo.get_by(username: username)
   end
 
-  def verify_user_password(%User{} = user, password) do
+  defp verify_user_password(%User{} = user, password) do
     Comeonin.Bcrypt.checkpw(password, user.hashed_password)
   end
 end
