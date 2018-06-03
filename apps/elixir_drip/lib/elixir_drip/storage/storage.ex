@@ -27,6 +27,7 @@ defmodule ElixirDrip.Storage do
       upload_task = %{
         media: media,
         content: content,
+        user_id: user_id,
         type: :upload
       }
 
@@ -417,6 +418,7 @@ defmodule ElixirDrip.Storage do
   defp _retrieve(user_id, %Media{} = media) do
     download_task = %{
       media: media,
+      user_id: user_id,
       type: :download
     }
     Queue.enqueue(Queue.Download, download_task)
