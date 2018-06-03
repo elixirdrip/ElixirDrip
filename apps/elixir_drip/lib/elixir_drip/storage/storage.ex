@@ -6,6 +6,7 @@ defmodule ElixirDrip.Storage do
   alias Ecto.Changeset
   alias ElixirDrip.Repo
   alias ElixirDrip.Storage.Workers.QueueWorker, as: Queue
+  alias ElixirDrip.Storage.Supervisors.CacheSupervisor, as: Cache
   alias ElixirDrip.Storage.{
     Media,
     Owner,
@@ -49,14 +50,29 @@ defmodule ElixirDrip.Storage do
     that will be handled by the Download Pipeline
   """
   def retrieve(user_id, media_id) do
-    user_media = user_media_query(user_id)
+    case get_media(user_id, media_id) do
+      {:ok, media} -> _retrieve(user_id, media)
+      {:error, :not_found} -> {:error, :not_found}
+      _ -> {:error, :unexpected_error}
+    end
+  end
 
-    media_query = from [_mo, m] in user_media,
-      where: m.id == ^media_id
+  def retrieve_content(user_id, media_id) do
+    media = get_media(user_id, media_id)
+    content = content_from_cache(media_id)
+    retrieve_response(media, content)
+  end
 
-    case Repo.one(media_query) do
-      nil   -> {:error, :not_found}
-      media -> _retrieve(media)
+  defp retrieve_response({:ok, media}, {:ok, content}), do: {:ok, media, content}
+  defp retrieve_response({:error, :not_found}, _), do: {:error, :media_not_found}
+  defp retrieve_response(_, {:error, :not_found}), do: {:error, :content_not_found}
+  defp retrieve_response(_, _), do: {:error, :unexpected_error}
+
+  defp content_from_cache(media_id) do
+    case Cache.get(media_id) do
+      {:ok, content} -> {:ok, content}
+      nil -> {:error, :not_found}
+      _ -> {:error, :unexpected_error}
     end
   end
 
@@ -391,7 +407,7 @@ defmodule ElixirDrip.Storage do
       select: m
   end
 
-  defp _retrieve(%Media{} = media) do
+  defp _retrieve(user_id, %Media{} = media) do
     download_task = %{
       media: media,
       type: :download
