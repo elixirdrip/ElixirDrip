@@ -1,23 +1,16 @@
 FROM elixir:1.6.4-alpine
 
-LABEL maintainer="dev@elixirdrip.io"
-
-ARG mix_env=dev
-ARG http_port=4000
-ARG app_path=/opt/app/
-ARG app_name=elixir_drip
-
 ENV TERM xterm
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
-ENV REFRESHED_AT 2017-12-16
+ENV REFRESHED_AT 2018-06-05
 
-ENV APP_PATH $app_path
-ENV APP_NAME $app_name
-ENV HTTP_PORT $http_port
-ENV MIX_ENV $mix_env
+ENV APP_PATH /opt/app
+ENV APP_NAME elixir_drip
+ENV HTTP_PORT 4000
+ENV MIX_ENV dev
 
 RUN apk add --no-cache build-base git inotify-tools nodejs nodejs-npm
 RUN mix archive.install https://github.com/phoenixframework/archives/raw/master/phx_new.ez --force
