@@ -9,6 +9,9 @@ config :elixir_drip, ElixirDrip.Repo,
   port: "${DB_PORT}",
   pool_size: 15
 
+config :elixir_drip,
+  storage_provider: ElixirDrip.Storage.Providers.GoogleCloudStorage.Live
+
 config :libcluster,
   topologies: [
     elixir_drip_topology: [
