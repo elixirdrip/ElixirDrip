@@ -39,4 +39,8 @@ release :elixir_drip do
     elixir_drip: :permanent,
     elixir_drip_web: :permanent
   ]
+  set commands: [
+    "migrate_up": "rel/commands/migrate_up.sh",
+    "migrate_down": "rel/commands/migrate_down.sh"
+  ]
 end
