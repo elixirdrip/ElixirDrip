@@ -1,0 +1,31 @@
+FROM release_prepared:latest as builder
+
+ENV RELEASE_ROOT_DIR /tmp/elixir_drip
+
+RUN ls -la $RELEASE_ROOT_DIR
+CMD ["echo", "Found the release, will copy it to final image."]
+
+FROM elixir:1.6.4-alpine as runner
+
+ENV TERM xterm
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+
+ENV REFRESHED_AT 2018-06-06
+
+ENV APP_PATH /opt/app
+ENV APP_NAME elixir_drip
+ENV APP_VERSION 0.0.8
+ENV HTTP_PORT 4000
+ENV HTTPS_PORT 4040
+ENV MIX_ENV prod
+ENV REPLACE_OS_VARS true
+
+COPY --from=builder /tmp/$APP_NAME $APP_PATH/$APP_NAME
+
+WORKDIR $APP_PATH/$APP_NAME
+
+EXPOSE $HTTP_PORT $HTTPS_PORT
+
+CMD ["sh", "-c", "bin/$APP_NAME foreground"]
