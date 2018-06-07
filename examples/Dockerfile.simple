@@ -1,0 +1,5 @@
+FROM elixir:1.6.4-alpine
+
+EXPOSE 4001
+
+CMD while true; do echo "Hello World!" | nc -l -p 4001; done
