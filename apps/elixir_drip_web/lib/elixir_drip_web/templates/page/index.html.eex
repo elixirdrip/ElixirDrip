@@ -1,5 +1,5 @@
 <div class="jumbotron">
-  <h2><%= gettext "Welcome to %{name}!", name: "ElixirDrip deployed by Travis CI" %></h2>
+  <h2><%= gettext "Welcome to %{name}!", name: "ElixirDrip (streamlined release) deployed by Travis CI" %></h2>
   <p class="lead">A productive web framework that<br />does not compromise speed and maintainability.</p>
 </div>
 

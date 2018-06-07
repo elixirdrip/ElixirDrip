@@ -1,4 +1,4 @@
-version: '2.1'
+version: '2.3'
 services:
   app:
     image: gcr.io/intense-talent-188323/elixir-drip-prod:v0.0.8

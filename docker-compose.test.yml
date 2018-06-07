@@ -1,7 +1,16 @@
-version: '2.1'
+version: '2.3'
 services:
   app:
     image: gcr.io/${PROJECT_ID}/elixir-drip-prod:${BUILD_TAG}
+    build:
+      context: .
+      dockerfile: Dockerfile.deploy
+    depends_on:
+      release:
+        condition: service_healthy
+    command: ["echo", "Release image ready to be deployed."]
+  release:
+    image: release_prepared:latest
     build:
       context: .
       dockerfile: Dockerfile
@@ -14,6 +23,12 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD", "cat", "/tmp/elixir_drip/ready"]
+      interval: 30s
+      timeout: 2s
+      retries: 10
+      start_period: 2m
   postgres:
     image: postgres:9.6
     healthcheck:
