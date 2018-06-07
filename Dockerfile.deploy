@@ -22,6 +22,8 @@ ENV HTTPS_PORT 4040
 ENV MIX_ENV prod
 ENV REPLACE_OS_VARS true
 
+RUN apk add --no-cache bash
+
 COPY --from=builder /tmp/$APP_NAME $APP_PATH/$APP_NAME
 
 WORKDIR $APP_PATH/$APP_NAME

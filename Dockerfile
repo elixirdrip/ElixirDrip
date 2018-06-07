@@ -15,7 +15,7 @@ ENV HTTPS_PORT 4040
 ENV MIX_ENV prod
 ENV REPLACE_OS_VARS true
 
-RUN apk add --no-cache build-base git nodejs nodejs-npm bash
+RUN apk add --no-cache build-base git nodejs nodejs-npm
 RUN mix archive.install https://github.com/phoenixframework/archives/raw/master/phx_new.ez --force
 RUN mix local.hex --force && mix local.rebar --force
 
