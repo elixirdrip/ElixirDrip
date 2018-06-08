@@ -22,8 +22,6 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
-config :elixir_drip_web, :generators, context_app: false
-
 config :elixir_drip_web, ElixirDripWeb.Endpoint,
   secret_key_base: System.get_env("SECRET_KEY_BASE")
 
