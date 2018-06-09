@@ -23,6 +23,8 @@ docker push gcr.io/${PROJECT_ID}/elixir-drip-prod:${COMMIT}
 
 kubectl -n ${ENVIRONMENT} get pods
 
-kubectl -n ${ENVIRONMENT} set image deployment/elixir-drip elixir-drip-prod=gcr.io/intense-talent-188323/elixir-drip-prod:${COMMIT}
+cat deploy/elixir-drip-deployment-prod.yml | sed "s/\${BUILD_TAG}/${COMMIT}/g" > travis-deployment-prod.yml
+
+kubectl -n ${ENVIRONMENT} apply -f travis-deployment-prod.yml
 
 echo "Success!"

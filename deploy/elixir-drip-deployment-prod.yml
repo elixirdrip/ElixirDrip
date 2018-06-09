@@ -20,7 +20,7 @@ spec:
         env: production
     spec:
       containers:
-        - image: gcr.io/intense-talent-188323/elixir-drip-prod:v0.0.8
+        - image: gcr.io/intense-talent-188323/elixir-drip-prod:${BUILD_TAG}
           name: elixir-drip-prod
           livenessProbe:
             httpGet:
