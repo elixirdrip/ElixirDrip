@@ -6,6 +6,9 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     env_file: ./env/dev.env
+    environment:
+      SECRET_KEY_BASE:
+      GOOGLE_STORAGE_CREDENTIALS:
     ports:
       - 4000:4000
     command: sh /opt/app/elixir_drip/script/start.sh
