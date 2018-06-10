@@ -47,7 +47,6 @@ WORKDIR /tmp/$APP_NAME
 RUN tar -xzf $APP_NAME.tar.gz
 RUN rm -rf $APP_NAME.tar.gz
 
-RUN touch /tmp/$APP_NAME/ready
 RUN echo "Release in place, ready to be copied."
 
 EXPOSE $HTTP_PORT $HTTPS_PORT
