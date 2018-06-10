@@ -15,12 +15,10 @@ spec:
     spec:
       restartPolicy: Never
       containers:
-        - image: gcr.io/intense-talent-188323/elixir-drip-prod:v0.0.8
+        - image: gcr.io/intense-talent-188323/elixir-drip-prod:${BUILD_TAG}
           name: elixir-drip-migrations
-          command: ["/bin/sh", "script/migrate.sh"]
+          command: ["sh", "-c", "bin/$APP_NAME migrate_up"]
           env:
-            - name: MIX_ENV
-              value: "migration"
             - name: PORT
               value: "4000"
             - name: DB_NAME
@@ -39,6 +37,15 @@ spec:
                 secretKeyRef:
                   name: cloudsql-postgres-credentials
                   key: password
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: ERLANG_COOKIE
+              valueFrom:
+                secretKeyRef:
+                  name: erlang-cookie
+                  key: cookie
         - image: gcr.io/cloudsql-docker/gce-proxy:1.11
           name: cloudsql-proxy
           command: ["/cloud_sql_proxy",

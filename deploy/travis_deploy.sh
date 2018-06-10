@@ -21,10 +21,24 @@ yes | gcloud auth configure-docker
 
 docker push gcr.io/${PROJECT_ID}/elixir-drip-prod:${COMMIT}
 
-kubectl -n ${ENVIRONMENT} get pods
+echo "[SCRIPT] Successfully pushed image tagged with ${COMMIT}"
+
+cat deploy/elixir-drip-migrations-prod.yml | sed "s/\${BUILD_TAG}/${COMMIT}/g" > travis-migrations-prod.yml
+
+echo "[SCRIPT] Replaced the BUILD_TAG in the migrations template"
+
+kubectl -n ${ENVIRONMENT} create -f travis-migrations-prod.yml
+
+echo "[SCRIPT] Applied the migrations template with the new image. Will wait 30 secs..."
+sleep 30
+echo "[SCRIPT] Now onto the deployment template."
 
 cat deploy/elixir-drip-deployment-prod.yml | sed "s/\${BUILD_TAG}/${COMMIT}/g" > travis-deployment-prod.yml
 
+echo "[SCRIPT] Replaced the BUILD_TAG in the deployment template"
+
 kubectl -n ${ENVIRONMENT} apply -f travis-deployment-prod.yml
 
-echo "Success!"
+echo "[SCRIPT] Applied the deployment template with the new image"
+
+echo "[SCRIPT] Success!"
