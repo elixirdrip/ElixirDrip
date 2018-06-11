@@ -1,4 +1,4 @@
-FROM elixir:1.6.4-alpine as builder
+FROM elixir:1.6.4-alpine
 
 ENV TERM xterm
 ENV LANG en_US.UTF-8
@@ -30,7 +30,6 @@ RUN rm -rf _build  \
 RUN MIX_ENV=$MIX_ENV mix clean \
     && MIX_ENV=$MIX_ENV mix deps.get \
     && MIX_ENV=$MIX_ENV mix compile
-
 RUN cd apps/elixir_drip_web/assets \
     && npm install \
     && ./node_modules/brunch/bin/brunch b -p

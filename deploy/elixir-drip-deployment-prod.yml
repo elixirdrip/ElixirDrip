@@ -55,6 +55,11 @@ spec:
                 secretKeyRef:
                   name: erlang-cookie
                   key: cookie
+            - name: SECRET_KEY_BASE
+              valueFrom:
+                secretKeyRef:
+                  name: secret-key-base
+                  key: value
             - name: GOOGLE_STORAGE_CREDENTIALS
               valueFrom:
                 secretKeyRef:
