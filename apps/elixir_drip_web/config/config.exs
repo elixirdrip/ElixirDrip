@@ -13,7 +13,7 @@ config :elixir_drip_web,
 # Configures the endpoint
 config :elixir_drip_web, ElixirDripWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "ez09L8wb/jXopY7jtFRlbEB8zb0vNAK4gfnUdwgA5kp5DUVZsz3QwxdnMs4f9cbq",
+  secret_key_base: System.get_env("SECRET_KEY_BASE"),
   render_errors: [view: ElixirDripWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: ElixirDripWeb.PubSub, adapter: Phoenix.PubSub.PG2]
 
@@ -21,9 +21,6 @@ config :elixir_drip_web, ElixirDripWeb.Endpoint,
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
-
-config :elixir_drip_web, ElixirDripWeb.Endpoint,
-  secret_key_base: System.get_env("SECRET_KEY_BASE")
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

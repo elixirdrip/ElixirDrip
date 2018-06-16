@@ -9,11 +9,14 @@ spec:
   activeDeadlineSeconds: 300
   template:
     metadata:
-      generateName: elixir-drip-migrations
       labels:
         env: production
     spec:
       restartPolicy: Never
+      volumes:
+        - name: cloudsql-proxy-creds-volume
+          secret:
+            secretName: cloudsql-proxy-credentials
       containers:
         - image: gcr.io/intense-talent-188323/elixir-drip-prod:${BUILD_TAG}
           name: elixir-drip-migrations
@@ -58,7 +61,3 @@ spec:
             - name: cloudsql-proxy-creds-volume
               mountPath: /secrets/cloudsql
               readOnly: true
-      volumes:
-        - name: cloudsql-proxy-creds-volume
-          secret:
-            secretName: cloudsql-proxy-credentials

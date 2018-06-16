@@ -4,7 +4,9 @@ services:
   - docker
 
 env:
-  - DOCKER_COMPOSE_VERSION=1.17.1
+  global:
+    - DOCKER_COMPOSE_VERSION=1.17.1
+    - PROJECT_ID=intense-talent-188323
 
 cache:
   directories:
@@ -28,7 +30,8 @@ before_script:
   - docker --version
   - docker-compose --version
 
-script: BUILD_TAG=$TRAVIS_COMMIT docker-compose -f docker-compose.test.yml run app
+script:
+  - BUILD_TAG=$TRAVIS_COMMIT docker-compose -f docker-compose.test.yml run app
 
 after_script:
   - BUILD_TAG=$TRAVIS_COMMIT docker-compose -f docker-compose.test.yml down

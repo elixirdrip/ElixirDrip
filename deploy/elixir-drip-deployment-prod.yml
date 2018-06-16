@@ -11,14 +11,18 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 10%
-      maxSurge: 50%
+      maxUnavailable: 1
+      maxSurge: 2
   template:
     metadata:
       labels:
         app: elixir-drip
         env: production
     spec:
+      volumes:
+        - name: cloudsql-proxy-creds-volume
+          secret:
+            secretName: cloudsql-proxy-credentials
       containers:
         - image: gcr.io/intense-talent-188323/elixir-drip-prod:${BUILD_TAG}
           name: elixir-drip-prod
@@ -87,7 +91,3 @@ spec:
             - name: cloudsql-proxy-creds-volume
               mountPath: /secrets/cloudsql
               readOnly: true
-      volumes:
-        - name: cloudsql-proxy-creds-volume
-          secret:
-            secretName: cloudsql-proxy-credentials
