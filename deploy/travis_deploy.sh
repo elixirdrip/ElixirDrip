@@ -4,9 +4,7 @@ COMMIT="$1"
 ENVIRONMENT="$2"
 echo "Deploying ${COMMIT} to ${ENVIRONMENT}"
 
-echo ${GOOGLE_CLOUD_DEPLOY_CREDENTIALS} | base64 --decode > ${HOME}/travis-ci-k8s-deployment-creds.json
-
-gcloud auth activate-service-account --key-file ${HOME}/travis-ci-k8s-deployment-creds.json
+gcloud auth activate-service-account --key-file secrets/travis-ci-k8s-prod.json
 
 ZONE=europe-west1-b
 PROJECT_ID=intense-talent-188323

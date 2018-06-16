@@ -24,7 +24,7 @@ before_install:
   - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
-
+  - openssl aes-256-cbc -K $encrypted_69f31b87e2af_key -iv $encrypted_69f31b87e2af_iv -in secrets/travis-ci-k8s-prod.json.enc -out secrets/travis-ci-k8s-prod.json -d
 
 before_script:
   - docker --version
@@ -47,10 +47,12 @@ deploy:
     # deploy development to the staging environment TODO: for now going to production
   - provider: script
     script: bash deploy/travis_deploy.sh $TRAVIS_COMMIT production
+    skip_cleanup: true
     on:
       branch: development
   # deploy master to production
   - provider: script
     script: bash deploy/travis_deploy.sh $TRAVIS_COMMIT production
+    skip_cleanup: true
     on:
       branch: master
