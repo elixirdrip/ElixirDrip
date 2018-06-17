@@ -69,19 +69,19 @@ defmodule ElixirDrip.Storage.Media do
   def is_valid_path?(path) when is_binary(path) do
     valid? = String.starts_with?(path, "$") && !String.ends_with?(path, "/")
 
-     case valid? do
-        true -> {:ok, :valid}
-        false -> {:error, :invalid_path}
-      end
+    case valid? do
+      true -> {:ok, :valid}
+      false -> {:error, :invalid_path}
+    end
   end
 
   def is_valid_name?(name) when is_binary(name) do
     valid? = byte_size(name) > 0 && !String.contains?(name, "/")
 
-     case valid? do
-        true -> {:ok, :valid}
-        false -> {:error, :invalid_name}
-      end
+    case valid? do
+      true -> {:ok, :valid}
+      false -> {:error, :invalid_name}
+    end
   end
 
   defp generate_storage_key(id, file_name), do: id <> "_" <> Utils.generate_timestamp() <> Path.extname(file_name)
