@@ -26,6 +26,7 @@ defmodule ElixirDrip.Storage.Pipeline.Encryption do
     Process.sleep(1000)
 
     Cache.put(id, content)
+    Logger.info("#{inspect(self())}: Placed media #{id} in cache, size: #{byte_size(content)} bytes.")
 
     Logger.debug("#{inspect(self())}: Encrypting media #{id}, size: #{byte_size(content)} bytes.")
 
