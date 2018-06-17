@@ -8,4 +8,10 @@ defmodule ElixirDrip.Storage.MediaTest do
 
     assert {:ok, :valid} == @subject.is_valid_path?(path)
   end
+
+  test "is_valid_path?/1 returns {:error, :invalid_path} for an invalid path" do
+    path = "$/abc/"
+
+    assert {:error, :invalid_path} == @subject.is_valid_path?(path)
+  end
 end
