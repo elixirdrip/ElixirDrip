@@ -21,7 +21,8 @@ limit: 1
 
 user = Repo.one(q1)
 
-Storage.store(user.id, "test1.txt", "$/this/is/the/full/path", "content content content")
+alias ElixirDrip.Storage
+Storage.store(user.id, "distributed_cache_test.txt", "$/distributed_test", "(｡◕‿◕｡) (｡◕‿◕｡) (｡◕‿◕｡) ¯\_(ツ)_/¯ (⌐■_■)")
 
 q2 = from m in Media,
 order_by: [desc: m.uploaded_at],

@@ -3,6 +3,7 @@ defmodule ElixirDrip.Storage do
 
   import ElixirDrip.Storage.Macros
   import Ecto.Query
+  require Logger
   alias Ecto.Changeset
   alias ElixirDrip.Repo
   alias ElixirDrip.Storage.Workers.QueueWorker, as: Queue
@@ -71,7 +72,9 @@ defmodule ElixirDrip.Storage do
 
   defp content_from_cache(media_id) do
     case Cache.get(media_id) do
-      {:ok, content} -> {:ok, content}
+      {:ok, content} ->
+        Logger.info "Found cached content for #{media_id}!"
+        {:ok, content}
       nil -> {:error, :not_found}
       _ -> {:error, :unexpected_error}
     end
