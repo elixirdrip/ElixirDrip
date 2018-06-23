@@ -2,6 +2,9 @@ use Mix.Config
 
 config :elixir_drip, ecto_repos: [ElixirDrip.Repo]
 
+config :elixir_drip, ElixirDrip.Repo,
+  loggers: [ElixirDrip.RepoInstrumenter]
+
 config :elixir_drip,
   storage_provider: ElixirDrip.Storage.Providers.GoogleCloudStorage.Local
 
