@@ -17,6 +17,7 @@ defmodule ElixirDripWeb.Application do
 
     ElixirDripWeb.EndpointInstrumenter.setup()
     ElixirDripWeb.PlugInstrumenter.setup()
+    ElixirDripWeb.MetricsExporter.setup()
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options

@@ -61,6 +61,7 @@ defmodule ElixirDripWeb.Endpoint do
   )
 
   plug(ElixirDripWeb.PlugInstrumenter)
+  plug(ElixirDripWeb.MetricsExporter)
 
   plug(ElixirDripWeb.Router)
 end
