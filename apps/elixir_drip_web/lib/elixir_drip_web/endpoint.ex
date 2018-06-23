@@ -60,5 +60,7 @@ defmodule ElixirDripWeb.Endpoint do
     signing_salt: "uj4bNucu"
   )
 
+  plug(ElixirDripWeb.PlugInstrumenter)
+
   plug(ElixirDripWeb.Router)
 end
