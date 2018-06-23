@@ -45,7 +45,9 @@ defmodule ElixirDripWeb.Mixfile do
       {:gettext, "~> 0.15"},
       {:cowboy, "~> 1.0"},
       {:timex, "~> 3.3"},
-      {:elixir_drip, in_umbrella: true}
+      {:elixir_drip, in_umbrella: true},
+      {:prometheus_phoenix, "~> 1.2"},
+      {:prometheus_plugs, "~> 1.1"},
     ]
   end
 

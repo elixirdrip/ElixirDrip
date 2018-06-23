@@ -45,7 +45,11 @@ defmodule ElixirDrip.Mixfile do
       {:bcrypt_elixir, "~> 1.0"},
       {:flow, "~> 0.12.0"},
       {:libcluster, "~> 2.5"},
-      {:gen_stage, "~> 0.13.0", override: true}
+      {:gen_stage, "~> 0.13.0", override: true},
+      {:prometheus, "~> 4.0", override: true},
+      {:prometheus_ex, "~> 3.0", override: true},
+      {:prometheus_ecto, "~> 1.0"},
+      {:prometheus_process_collector, "~> 1.3"},
     ]
   end
 
