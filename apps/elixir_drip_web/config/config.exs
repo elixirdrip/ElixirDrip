@@ -15,7 +15,8 @@ config :elixir_drip_web, ElixirDripWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: System.get_env("SECRET_KEY_BASE"),
   render_errors: [view: ElixirDripWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: ElixirDripWeb.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: ElixirDripWeb.PubSub, adapter: Phoenix.PubSub.PG2],
+  instrumenters: [ElixirDripWeb.EndpointInstrumenter]
 
 # Configures Elixir's Logger
 config :logger, :console,

@@ -15,6 +15,8 @@ defmodule ElixirDripWeb.Application do
       # worker(ElixirDripWeb.Worker, [arg1, arg2, arg3]),
     ]
 
+    ElixirDripWeb.EndpointInstrumenter.setup()
+
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: ElixirDripWeb.Supervisor]
