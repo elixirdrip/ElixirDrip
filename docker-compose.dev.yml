@@ -1,5 +1,14 @@
 version: '2.3'
 services:
+  prometheus:
+    build:
+      context: .
+      dockerfile: monitoring/Dockerfile.prometheus
+    depends_on:
+      app:
+        condition: service_started
+    ports:
+      - 9090:9090
   app:
     image: elixir_drip:dev
     build:
