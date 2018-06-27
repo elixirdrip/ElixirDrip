@@ -8,6 +8,12 @@ defmodule ElixirDripWeb.HealthController do
 
     {:ok, hostname} = :inet.gethostname
 
+    # Sleeping at most 13 seconds to see
+    # the resulting histogram in Prometheus
+    # (K8s health endpoint timeout is 15 seconds)
+    sleep_millisecs = :rand.uniform(13_000)
+    Process.sleep(sleep_millisecs)
+
     json(conn, %{
       ok: timestamp,
       hostname: to_string(hostname),
