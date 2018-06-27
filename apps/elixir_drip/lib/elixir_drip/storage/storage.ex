@@ -1,6 +1,7 @@
 defmodule ElixirDrip.Storage do
   @moduledoc false
 
+  import ElixirDrip.Chronometer
   import ElixirDrip.Storage.Macros
   import Ecto.Query
   require Logger
@@ -18,7 +19,7 @@ defmodule ElixirDrip.Storage do
     It sequentially creates the Media on the DB and
     triggers an Upload request handled by the Upload Pipeline.
   """
-  def store(user_id, file_name, full_path, content) do
+  defmeasured store(user_id, file_name, full_path, content) do
     file_size = byte_size(content)
     with %Owner{} = owner <- get_owner(user_id),
          %Changeset{} = changeset <- Media.create_initial_changeset(owner.id, file_name, full_path, file_size),

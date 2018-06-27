@@ -29,8 +29,9 @@ defmodule ElixirDrip.Storage.Workers.CacheWorker do
   def get_media(pid), do: GenServer.call(pid, :get_media)
 
   def handle_call(:get_media, _from, %{hits: hits, content: content, timer: timer} = state) do
-    # Logger.debug("#{inspect(self())}: Received :get_media and served #{byte_size(content)} bytes #{hits+1} times.")
-    Logger.debug("#{inspect(self())}: Received :get_media and served '#{inspect(content)}' bytes #{hits+1} times.")
+    ElixirDrip.Instrumenter.count(:cache_worker_hit)
+
+    Logger.debug("#{inspect(self())}: Received :get_media and served #{byte_size(content)} bytes #{hits+1} times.")
 
     new_timer = refresh_timer(timer)
 
