@@ -1,10 +1,9 @@
 defmodule ElixirDrip.Chronometer do
   @moduledoc false
 
-  defmacro __using__(options) do
-    IO.puts "inside __using__"
-    IO.inspect options
+  alias ElixirDrip.Instrumenter
 
+  defmacro __using__(options) do
     time_unit = options[:unit]
 
     quote do
@@ -30,6 +29,34 @@ defmodule ElixirDrip.Chronometer do
           pretty_signature(__MODULE__, unquote(function), unquote(arity))
 
         run_and_measure(@time_unit, signature, fn -> unquote(body) end)
+      end
+    end
+  end
+
+  defmacro defmeasured(function_definition, do: body) do
+    {function, args} = Macro.decompose_call(function_definition)
+    arity = length(args)
+
+    quote bind_quoted: [
+      function_definition: Macro.escape(function_definition),
+      body: Macro.escape(body),
+      function: function,
+      arity: arity
+    ] do
+      def unquote(function_definition) do
+        module_name = __MODULE__
+                       |> Atom.to_string()
+                       |> String.split(".")
+                       |> Enum.at(-1)
+                       |> String.downcase()
+
+        function_name = unquote(function)
+                        |> Atom.to_string()
+
+        histogram = "#{module_name}_#{function_name}"
+                         |> String.to_atom()
+
+        Instrumenter.observe_duration(histogram, fn -> unquote(body) end)
       end
     end
   end

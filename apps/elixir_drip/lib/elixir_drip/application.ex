@@ -22,6 +22,7 @@ defmodule ElixirDrip.Application do
     import Supervisor.Spec, warn: false
 
     ElixirDrip.RepoInstrumenter.setup()
+    ElixirDrip.Instrumenter.setup()
 
     Supervisor.start_link(
       [
