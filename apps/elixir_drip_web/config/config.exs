@@ -26,4 +26,12 @@ config :logger, :console,
 config :prometheus, ElixirDripWeb.PlugInstrumenter,
   labels: [:status_class, :method, :host, :scheme, :request_path]
 
+config :prometheus, ElixirDripWeb.EndpointInstrumenter,
+duration_buckets: [
+  500, 1000, 2500, 5000, 10_000, 25_000, 50_000,
+  100_000, 250_000, 500_000, 1_000_000, 2_500_000, 5_000_000,
+  10_000_000, 12_500_000, 15_000_000, 17_500_000, 20_000_000
+]
+
+
 import_config "#{Mix.env()}.exs"
