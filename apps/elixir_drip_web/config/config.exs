@@ -33,5 +33,7 @@ duration_buckets: [
   10_000_000, 12_500_000, 15_000_000, 17_500_000, 20_000_000
 ]
 
+config :wobserver,
+  mode: :plug
 
 import_config "#{Mix.env()}.exs"

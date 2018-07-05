@@ -48,6 +48,7 @@ defmodule ElixirDripWeb.Mixfile do
       {:elixir_drip, in_umbrella: true},
       {:prometheus_phoenix, "~> 1.2"},
       {:prometheus_plugs, "~> 1.1"},
+      {:wobserver, "~> 0.1.8"},
     ]
   end
 

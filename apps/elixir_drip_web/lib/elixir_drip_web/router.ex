@@ -22,6 +22,8 @@ defmodule ElixirDripWeb.Router do
     plug(Plug.Logger)
   end
 
+  forward("/wobserver", Wobserver.Web.Router)
+
   get("/health", ElixirDripWeb.HealthController, :health)
 
   scope "/", ElixirDripWeb do
