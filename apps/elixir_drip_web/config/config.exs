@@ -34,6 +34,11 @@ duration_buckets: [
 ]
 
 config :wobserver,
-  mode: :plug
+  mode: :plug,
+  port: 4000,
+  discovery: :custom,
+  discovery_search: "&ElixirDripWeb.Wobserver.Discovery.discover/0",
+  remote_url_prefix: "/wobserver"
+
 
 import_config "#{Mix.env()}.exs"
