@@ -21,13 +21,10 @@ defmodule ElixirDrip.Storage.Pipeline.RemoteStorage do
   @impl GenStage
   def handle_events(tasks, _from, _state) do
     processed = Enum.map(tasks, &remote_storage_step(&1))
-
     {:noreply, processed, @dummy_state}
   end
 
   defp remote_storage_step(%{media: %{id: id, storage_key: storage_key} = media, content: content, type: :upload} = task) do
-    Process.sleep(2000)
-
     Logger.debug("#{inspect(self())}: Uploading media #{id} to #{storage_key}, size: #{byte_size(content)} bytes.")
 
     {:ok, :uploaded} = @provider.upload(storage_key, content)
@@ -36,8 +33,6 @@ defmodule ElixirDrip.Storage.Pipeline.RemoteStorage do
   end
 
   defp remote_storage_step(%{media: %{id: id, storage_key: storage_key}, type: :download} = task) do
-    Process.sleep(2000)
-
     result = case Cache.get(id) do
       nil ->
         {:ok, content} = @provider.download(storage_key)
@@ -56,4 +51,3 @@ defmodule ElixirDrip.Storage.Pipeline.RemoteStorage do
     Map.merge(task, result)
   end
 end
-
