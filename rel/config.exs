@@ -24,6 +24,7 @@ environment :prod do
   set include_erts: true
   set include_src: false
   set cookie: :"won't be used, we set it via a custom vm.args file (rel/custom.vm.args)"
+  set erl_opts: "-kernel inet_dist_listen_min 9001 inet_dist_listen_max 9001"
 end
 
 # You may define one or more releases in this file.
