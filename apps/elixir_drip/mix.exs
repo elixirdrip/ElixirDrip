@@ -45,7 +45,8 @@ defmodule ElixirDrip.Mixfile do
       {:bcrypt_elixir, "~> 1.0"},
       {:flow, "~> 0.12.0"},
       {:libcluster, "~> 2.5"},
-      {:gen_stage, "~> 0.13.0", override: true}
+      {:gen_stage, "~> 0.13.0", override: true},
+      {:mox, "~> 0.3", only: :test}
     ]
   end
 

@@ -1,5 +1,7 @@
 use Mix.Config
 
+config :elixir_drip, storage_provider: ElixirDrip.Storage.Providers.GoogleCloudStorageMock
+
 # Configure your database
 config :elixir_drip, ElixirDrip.Repo,
   adapter: Ecto.Adapters.Postgres,

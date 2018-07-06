@@ -2,8 +2,7 @@ use Mix.Config
 
 config :elixir_drip, ecto_repos: [ElixirDrip.Repo]
 
-config :elixir_drip,
-  storage_provider: ElixirDrip.Storage.Providers.GoogleCloudStorageLocal
+config :elixir_drip, storage_provider: ElixirDrip.Storage.Providers.GoogleCloudStorageLive
 
 config :arc,
   storage: Arc.Storage.GCS,
