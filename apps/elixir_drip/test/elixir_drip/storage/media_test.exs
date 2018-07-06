@@ -2,6 +2,7 @@ defmodule ElixirDrip.Storage.MediaTest do
   use ExUnit.Case, async: true
 
   @subject ElixirDrip.Storage.Media
+  doctest @subject
 
   setup do
     user_id = "0ujsswThIGTUYm2K8FjOOfXtY1K"

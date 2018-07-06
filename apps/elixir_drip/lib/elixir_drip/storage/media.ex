@@ -66,6 +66,22 @@ defmodule ElixirDrip.Storage.Media do
     end)
   end
 
+  @doc"""
+  Verifies if the provided `path` is valid or not.
+
+  ## Examples
+
+      iex> ElixirDrip.Storage.Media.is_valid_path?("$/abc")
+      {:ok, :other_atom}
+
+  When we provide an invalid path (that either doesn't start with `$` or ends with `/`), it returns {:error, :invalid_path}
+
+      iex> ElixirDrip.Storage.Media.is_valid_path?("$/abc/")
+      {:error, :invalid_path}
+
+      iex> ElixirDrip.Storage.Media.is_valid_path?("/abc")
+      {:error, :invalid_path}
+  """
   def is_valid_path?(path) when is_binary(path) do
     valid? = String.starts_with?(path, "$") && !String.ends_with?(path, "/")
 
