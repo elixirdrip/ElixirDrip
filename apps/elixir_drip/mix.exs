@@ -46,7 +46,8 @@ defmodule ElixirDrip.Mixfile do
       {:flow, "~> 0.12.0"},
       {:libcluster, "~> 2.5"},
       {:gen_stage, "~> 0.13.0", override: true},
-      {:mox, "~> 0.3", only: :test}
+      {:mox, "~> 0.3", only: :test},
+      {:stream_data, "~> 0.4", only: :test}
     ]
   end
 
