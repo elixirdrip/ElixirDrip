@@ -11,3 +11,5 @@ config :elixir_drip, ElixirDrip.Repo,
   hostname: System.get_env("DB_HOST"),
   port: System.get_env("DB_PORT"),
   pool: Ecto.Adapters.SQL.Sandbox
+
+config :stream_data, max_runs: 500
