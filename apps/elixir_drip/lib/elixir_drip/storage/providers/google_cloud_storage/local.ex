@@ -1,4 +1,4 @@
-defmodule ElixirDrip.Storage.Providers.GoogleCloudStorage.Local do
+defmodule ElixirDrip.Storage.Providers.GoogleCloudStorageLocal do
   @behaviour ElixirDrip.Behaviours.StorageProvider
 
   require Logger

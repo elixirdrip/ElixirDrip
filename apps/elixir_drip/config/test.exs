@@ -1,5 +1,7 @@
 use Mix.Config
 
+config :elixir_drip, storage_provider: ElixirDrip.Storage.Providers.GoogleCloudStorageMock
+
 # Configure your database
 config :elixir_drip, ElixirDrip.Repo,
   adapter: Ecto.Adapters.Postgres,
@@ -9,3 +11,5 @@ config :elixir_drip, ElixirDrip.Repo,
   hostname: System.get_env("DB_HOST"),
   port: System.get_env("DB_PORT"),
   pool: Ecto.Adapters.SQL.Sandbox
+
+config :stream_data, max_runs: 500

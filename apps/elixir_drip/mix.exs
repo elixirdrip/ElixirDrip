@@ -49,6 +49,8 @@ defmodule ElixirDrip.Mixfile do
       {:prometheus, "~> 4.0", override: true},
       {:prometheus_ex, "~> 3.0", override: true},
       {:prometheus_ecto, "~> 1.0"},
+      {:mox, "~> 0.3", only: :test},
+      {:stream_data, "~> 0.4", only: :test}
     ]
   end
 

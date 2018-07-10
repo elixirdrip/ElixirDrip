@@ -1,4 +1,4 @@
-defmodule ElixirDrip.Storage.Providers.GoogleCloudStorage.Live do
+defmodule ElixirDrip.Storage.Providers.GoogleCloudStorageLive do
   defmodule GoogleCloud do
     use Arc.Definition
   end

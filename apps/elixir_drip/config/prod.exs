@@ -10,7 +10,7 @@ config :elixir_drip, ElixirDrip.Repo,
   pool_size: 15
 
 config :elixir_drip,
-  storage_provider: ElixirDrip.Storage.Providers.GoogleCloudStorage.Live
+  storage_provider: ElixirDrip.Storage.Providers.GoogleCloudStorageLive
 
 config :libcluster,
   topologies: [

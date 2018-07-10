@@ -27,6 +27,7 @@ defmodule ElixirDripWeb.UserSocket do
       {:error, _reason} -> :error
     end
   end
+  def connect(_params, _socket), do: :error
 
   # Socket id's are topics that allow you to identify all sockets for a given user:
   #

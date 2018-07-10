@@ -16,8 +16,8 @@ services:
       dockerfile: Dockerfile.dev
     env_file: ./env/dev.env
     environment:
-      SECRET_KEY_BASE:
-      GOOGLE_STORAGE_CREDENTIALS:
+      SECRET_KEY_BASE: ${SECRET_KEY_BASE}
+      GOOGLE_STORAGE_CREDENTIALS: ${GOOGLE_STORAGE_CREDENTIALS}
     ports:
       - 4000:4000
       - 4369
