@@ -12,15 +12,6 @@ defmodule ElixirDripWeb.FileController do
 
     with {:ok, media} <- Storage.media_by_folder(user.id, path) do
       render(conn, "index.html", files: media.files, folders: media.folders, current_path: path)
-    else
-      {:error, :invalid_path} ->
-        conn
-        |> put_flash(:error, "The path provided is invalid.")
-        |> redirect(to: file_path(conn, :index, "path": "$"))
-      _ ->
-        conn
-        |> put_flash(:error, "Unexpected error.")
-        |> redirect(to: file_path(conn, :index, "path": "$"))
     end
   end
 
@@ -38,15 +29,6 @@ defmodule ElixirDripWeb.FileController do
 
     with {:ok, file} <- Storage.get_file_info(user.id, id) do
       render(conn, file: file)
-    else
-      {:error, :not_found} ->
-        conn
-        |> put_flash(:error, "File not found.")
-        |> redirect(to: file_path(conn, :index, "path": "$"))
-      _ ->
-        conn
-        |> put_flash(:error, "Unexpected error.")
-        |> redirect(to: file_path(conn, :index, "path": "$"))
     end
   end
   # def show(conn, %{"id" => id}) do
