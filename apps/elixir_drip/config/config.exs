@@ -6,7 +6,7 @@ config :elixir_drip, ElixirDrip.Repo,
   loggers: [ElixirDrip.RepoInstrumenter]
 
 config :elixir_drip,
-  storage_provider: ElixirDrip.Storage.Providers.GoogleCloudStorage.Live
+  storage_provider: ElixirDrip.Storage.Providers.GoogleCloudStorageLocal
 
 config :arc,
   storage: Arc.Storage.GCS,
